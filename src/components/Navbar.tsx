@@ -41,6 +41,16 @@ const Navbar: FC = () => {
                   ? "active py-0.5 md:py-3 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2  font-medium text-blue-500  focus:outline-none dark:border-neutral-200 dark:text-neutral-200  "
                   : "py-0.5 md:py-3 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200"
               }
+              to="/code"
+            >
+              ByCode
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "active py-0.5 md:py-3 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2  font-medium text-blue-500  focus:outline-none dark:border-neutral-200 dark:text-neutral-200  "
+                  : "py-0.5 md:py-3 px-4 md:px-1 border-s-2 md:border-s-0 md:border-b-2 border-transparent text-gray-500 hover:text-gray-800 focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-200"
+              }
               to="/history"
             >
               History

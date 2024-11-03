@@ -1,18 +1,24 @@
 import { Route, Routes } from "react-router-dom";
 import { lazy } from "react";
 import Root from "./pages/Root";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+const ByCode = lazy(() => import("./pages/ByCode"));
 const History = lazy(() => import("./pages/History"));
 const Home = lazy(() => import("./pages/Home"));
 const App = () => {
+  const queryClient = new QueryClient();
   return (
-    <Routes>
-      <Route path="/" element={<Root />}>
-        <Route index element={<Home />} />
-        <Route path="history" element={<History />} />
-        <Route path="*" element={<div>404</div>} />
-      </Route>
-    </Routes>
+    <QueryClientProvider client={queryClient}>
+      <Routes>
+        <Route path="/" element={<Root />}>
+          <Route index element={<Home />} />
+          <Route path="history" element={<History />} />
+          <Route path="code" element={<ByCode />} />
+          <Route path="*" element={<div>404</div>} />
+        </Route>
+      </Routes>
+    </QueryClientProvider>
   );
 };
 

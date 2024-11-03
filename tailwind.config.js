@@ -3,7 +3,7 @@ const { fontFamily } = require("tailwindcss/defaultTheme");
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
-  content: ["src/**/*.{ts,tsx}", "app/**/*.{ts,tsx}"],
+  content: ["./src/**/*.{js,jsx,ts,tsx,html}"],
   theme: {
     container: {
       center: true,
@@ -65,6 +65,10 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        spin: {
+          from: { transform: "rotate(0deg)" },
+          to: { transform: "rotate(360deg)" },
+        },
         "border-beam": {
           "100%": {
             "offset-distance": "100%",
@@ -72,6 +76,7 @@ module.exports = {
         },
       },
       animation: {
+        "animate-spin": "spin 1s linear infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
