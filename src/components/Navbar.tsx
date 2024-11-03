@@ -5,7 +5,7 @@ const Navbar: FC = () => {
   useEffect(() => {}, []);
   return (
     <header className="absolute top-0 inset-x-0 flex flex-wrap justify-center md:flex-nowrap z-50 w-full text-sm mb-4">
-      <nav className="mt-4 relative max-w-2xl w-full bg-white border border-gray-200 rounded-[2rem] mx-2 py-2.5 md:flex md:items-center md:justify-between md:py-0 md:px-4 md:mx-auto dark:bg-[#242424] dark:border-neutral-700">
+      <nav className="mt-4 relative max-w-2xl w-full bg-white border border-gray-200 rounded-[2rem] mx-2 py-2.5 flex items-center justify-between md:py-0 md:px-4 md:mx-auto dark:bg-[#242424] dark:border-neutral-700">
         <div className="px-4 md:px-0 flex justify-between items-center">
           <div>
             <NavLink
@@ -20,10 +20,10 @@ const Navbar: FC = () => {
 
         <div
           id="hs-navbar-header-floating"
-          className="hidden hs-collapse overflow-hidden transition-all duration-300 basis-full grow md:block"
+          className=" hs-collapse overflow-hidden transition-all duration-300 basis-full grow "
           aria-labelledby="hs-navbar-header-floating-collapse"
         >
-          <div className="flex flex-col md:flex-row md:items-center md:justify-end gap-2 md:gap-3 mt-3 md:mt-0 py-2 md:py-0 md:ps-7">
+          <div className="flex   items-center justify-end  gap-3  mt-0  py-0 md:ps-7">
             <NavLink
               className={({ isActive }) =>
                 isActive

@@ -63,11 +63,13 @@ const Desc: React.FC<
         backgroundColor: props.data.color,
         position: "relative",
       }}
+      className="transition-colors"
     >
       <Typography.Title
         type="secondary"
         level={5}
         style={{ whiteSpace: "nowrap", color: "white" }}
+        className="font-mono "
       >
         {props.data.color}
       </Typography.Title>

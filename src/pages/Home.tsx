@@ -127,7 +127,7 @@ function Home() {
     <Loading />
   ) : (
     <div className="">
-      <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden rounded-lg border  md:shadow-xl">
+      <div className="gap-y-16 relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden rounded-lg border  md:shadow-xl">
         <DotPattern
           className={cn(
             "[mask-image:radial-gradient(500px_circle_at_center,#fff,transparent)]"
@@ -144,9 +144,10 @@ function Home() {
         />
         <div className="container text-white">
           <Splitter
-            className="rounded-xl overflow-hidden	"
+            className="rounded-xl overflow-hidden	mx-auto"
             style={{
               height: 200,
+              width: "100%",
             }}
           >
             {myData.map((ele: any) => (
