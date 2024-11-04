@@ -8,6 +8,9 @@ import Desc from "../components/Desc";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../components/Loader";
 import { useEffect, useState } from "react";
+import { Bounce, toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import copy from "copy-to-clipboard";
 interface ItemType {
   id: number;
   color: string;
@@ -118,7 +121,20 @@ function Home() {
       console.log("error Feaching");
     }
   }
-
+  function notify(color: string) {
+    copy(color);
+    toast.success(`Color ${color} is Copied!!`, {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      transition: Bounce,
+    });
+  }
   useEffect(() => {
     console.log("effect");
   }, []);
@@ -142,6 +158,19 @@ function Home() {
           colorFrom="#ffaa40"
           colorTo="#9c40ff"
         />
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          transition={Bounce}
+        />
         <div className="container text-white">
           <Splitter
             className="rounded-xl overflow-hidden	mx-auto"
@@ -157,6 +186,7 @@ function Home() {
                   toggleLock={toggleLock}
                   toggleLike={toggleLike}
                   handleCodeChange={handleCodeChange}
+                  notify={notify}
                 />
               </Splitter.Panel>
             ))}

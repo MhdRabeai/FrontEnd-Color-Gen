@@ -15,6 +15,7 @@ const Desc: React.FC<
     toggleLock?: Function | any;
     toggleLike?: Function | any;
     handleCodeChange?: Function | any;
+    notify?: Function | any;
   }>
 > = (props) => {
   const items: MenuProps["items"] = [
@@ -88,7 +89,10 @@ const Desc: React.FC<
           )}
         </button>
         <button>
-          <GoCopy className="fill-[#777] hover:fill-[#fff]" />
+          <GoCopy
+            className="fill-[#777] hover:fill-[#fff]"
+            onClick={() => props.notify(props.data.color)}
+          />
         </button>
         <button>
           {props.data.like ? (
