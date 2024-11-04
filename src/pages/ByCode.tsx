@@ -2,9 +2,17 @@ import DotPattern from "../components/magicui/DotPattern";
 import { cn } from "../lib/utils";
 
 import { BorderBeam } from "../components/magicui/BorderBeam";
+import { useState } from "react";
+import Loading from "../components/Loader";
 
 const ByCode = () => {
-  return (
+  const [loadCompo, setLoadCompo] = useState<boolean>(true);
+  setTimeout(() => {
+    setLoadCompo(false);
+  }, 2000);
+  return loadCompo ? (
+    <Loading />
+  ) : (
     <div className=" ">
       <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden rounded-lg border  md:shadow-xl">
         <DotPattern

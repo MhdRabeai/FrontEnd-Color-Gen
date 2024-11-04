@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Flex, Typography } from "antd";
 import { FaLock } from "react-icons/fa6";
 import { FaLockOpen } from "react-icons/fa6";
@@ -8,6 +8,7 @@ import { GoCopy } from "react-icons/go";
 import { IoMdSettings } from "react-icons/io";
 import type { MenuProps } from "antd";
 import { Dropdown } from "antd";
+import { ColorPicker } from "antd";
 
 const Desc: React.FC<
   Readonly<{
@@ -16,6 +17,8 @@ const Desc: React.FC<
     toggleLike?: Function | any;
     handleCodeChange?: Function | any;
     notify?: Function | any;
+    handleChangeColor?: Function | any;
+    tabActive?: string | any;
   }>
 > = (props) => {
   const items: MenuProps["items"] = [
@@ -53,41 +56,51 @@ const Desc: React.FC<
       ),
     },
   ];
-  const myRef = useRef(null);
+
   return (
     <Flex
-      ref={myRef}
       justify="center"
       align="center"
       style={{
-        height: "100%",
-        backgroundColor: props.data.color,
-        position: "relative",
+        borderRadius: "15px",
       }}
-      className="transition-colors"
+      className="relative h-full overflow-hidden"
     >
-      <Typography.Title
-        type="secondary"
-        level={5}
-        style={{ whiteSpace: "nowrap", color: "white" }}
-        className="font-mono "
+      <div
+        className={`transition hover:filter-none brightness-50 h-full w-full flex justify-center items-center `}
+        style={{ backgroundColor: props.data.color }}
       >
-        {props.data.color}
-      </Typography.Title>
+        <Typography.Title
+          type="secondary"
+          level={5}
+          style={{ whiteSpace: "nowrap", color: "white" }}
+          className="font-mono text-center"
+        >
+          <button onClick={() => props.notify(props.data.color)}>
+            {props.data.color}
+          </button>
+        </Typography.Title>
+      </div>
+
       <div className="absolute w-full bg-[#242424] bottom-0 left-0 p-3 flex items-center justify-evenly">
-        <button className="text-red">
-          {props.data.state ? (
-            <FaLockOpen
-              className="fill-[#777] hover:fill-[#fff]"
-              onClick={() => props.toggleLock(props.data.id)}
-            />
-          ) : (
-            <FaLock
-              className="fill-[#777] hover:fill-[#fff]"
-              onClick={() => props.toggleLock(props.data.id)}
-            />
-          )}
-        </button>
+        {props.tabActive === "random" ? (
+          <button>
+            {props.data.state ? (
+              <FaLockOpen
+                className="fill-[#777] hover:fill-[#fff]"
+                onClick={() => props.toggleLock(props.data.id)}
+              />
+            ) : (
+              <FaLock
+                className="fill-[#777] hover:fill-[#fff]"
+                onClick={() => props.toggleLock(props.data.id)}
+              />
+            )}
+          </button>
+        ) : (
+          ""
+        )}
+
         <button>
           <GoCopy
             className="fill-[#777] hover:fill-[#fff]"
@@ -111,6 +124,13 @@ const Desc: React.FC<
         <Dropdown menu={{ items }} placement="bottom" arrow className="dark">
           <IoMdSettings className="fill-[#777] hover:fill-[#fff]" />
         </Dropdown>
+        <ColorPicker
+          className="min-w-5 w-5 min-h-5 h-5 p-0 flex justify-center items-center"
+          value={props.data.color}
+          onChange={(e) =>
+            props.handleChangeColor(props.data.id, e.toHexString())
+          }
+        />
       </div>
     </Flex>
   );

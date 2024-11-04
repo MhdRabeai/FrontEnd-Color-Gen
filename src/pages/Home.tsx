@@ -2,10 +2,10 @@ import { CoolMode } from "../components/magicui/BaseParticle";
 import DotPattern from "../components/magicui/DotPattern";
 import { cn } from "../lib/utils";
 import { BorderBeam } from "../components/magicui/BorderBeam";
-import { Splitter } from "antd";
+import { Flex, Radio, RadioChangeEvent, Splitter } from "antd";
 import { HiRefresh } from "react-icons/hi";
 import Desc from "../components/Desc";
-import { useQuery } from "@tanstack/react-query";
+// import { useQuery } from "@tanstack/react-query";
 import Loading from "../components/Loader";
 import { useEffect, useState } from "react";
 import { Bounce, toast, ToastContainer } from "react-toastify";
@@ -21,24 +21,15 @@ interface ItemType {
 function Home() {
   const [myData, setMyData] = useState<ItemType[]>([]);
   const [loadings, setLoadings] = useState<boolean>(false);
+  const [loadCompo, setLoadCompo] = useState<boolean>(true);
+  const [tabActive, setTabActive] = useState<string>("random");
 
-  const query = useQuery({
-    queryKey: ["data"],
-    queryFn: async (): Promise<any> => {
-      try {
-        const ress = await fetch("http://localhost:4000/", {
-          credentials: "include",
-        });
-        if (ress.ok) {
-          const result = await ress.json();
-          setMyData(result);
-          return result;
-        }
-      } catch (err) {
-        console.log("error Feaching");
-      }
-    },
-  });
+  // const query = useQuery({
+  //   queryKey: ["data"],
+  //   queryFn: async (): Promise<any> => {
+
+  //   },
+  // });
   async function toggleLock(id: number) {
     try {
       const ress = await fetch(
@@ -80,14 +71,17 @@ function Home() {
   async function reGenerate() {
     setLoadings(true);
     try {
-      const ress = await fetch(`http://localhost:4000/regenerate`, {
-        credentials: "include",
-      });
+      const ress = await fetch(
+        `http://localhost:4000/regenerate?tab=${tabActive}`,
+        {
+          credentials: "include",
+        }
+      );
       if (ress.ok) {
         const data = await ress.json();
         setTimeout(async () => {
           if (await data) {
-            setMyData(data);
+            setMyData(data["randomFive"]);
             setLoadings(false);
           }
         }, 2000);
@@ -135,11 +129,58 @@ function Home() {
       transition: Bounce,
     });
   }
+  function handleChangeColor(id: number, newColor: string) {
+    setMyData((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id ? { ...item, color: newColor } : item
+      )
+    );
+  }
+  async function handleOnChange(e: RadioChangeEvent) {
+    try {
+      const ress = await fetch(`http://localhost:4000/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ method: e.target.value }),
+      });
+      if (ress.ok) {
+        const data = await ress.json();
+        setTabActive(e.target.value);
+        setMyData(data["randomFive"]);
+      }
+    } catch (err) {
+      console.log("error Feaching");
+    }
+  }
+  async function handleInit() {
+    try {
+      const ress = await fetch("http://localhost:4000/", {
+        credentials: "include",
+      });
+      if (ress.ok) {
+        const result = await ress.json();
+        setTabActive(!result["type"] ? "random" : result["type"]);
+        setMyData(result["randomFive"]);
+
+        return result;
+      }
+    } catch (err) {
+      console.log("error Feaching");
+    }
+  }
+  setTimeout(() => {
+    setLoadCompo(false);
+  }, 2000);
   useEffect(() => {
+    handleInit();
     console.log("effect");
   }, []);
 
-  return query.isLoading ? (
+  // return query.isLoading ? (
+  return loadCompo ? (
     <Loading />
   ) : (
     <div className="">
@@ -171,6 +212,19 @@ function Home() {
           theme="dark"
           transition={Bounce}
         />
+        <div className="container text-white ">
+          <Flex vertical gap="middle" className="mx-auto w-fit	">
+            <Radio.Group onChange={handleOnChange} defaultValue={tabActive}>
+              <Radio.Button className="bg-green-200" value="random">
+                Random
+              </Radio.Button>
+              <Radio.Button value="monochrome">Monochrome</Radio.Button>
+              <Radio.Button value="additional">Additional</Radio.Button>
+              <Radio.Button value="triadic">Triadic</Radio.Button>
+              <Radio.Button value="quadratic">Quadratic</Radio.Button>
+            </Radio.Group>
+          </Flex>
+        </div>
         <div className="container text-white">
           <Splitter
             className="rounded-xl overflow-hidden	mx-auto"
@@ -187,6 +241,8 @@ function Home() {
                   toggleLike={toggleLike}
                   handleCodeChange={handleCodeChange}
                   notify={notify}
+                  handleChangeColor={handleChangeColor}
+                  tabActive={tabActive}
                 />
               </Splitter.Panel>
             ))}
@@ -199,10 +255,10 @@ function Home() {
             }}
           >
             <button
-              className="flex items-center justify-between rounded-xl text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2"
+              className="flex items-center justify-between rounded-xl text-sm font-bold	 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-5 py-3"
               onClick={reGenerate}
             >
-              Generate
+              REGENERATE
               <HiRefresh
                 className={` h-4 w-4 ml-3 ${loadings && "animate-spin"}`}
               />
