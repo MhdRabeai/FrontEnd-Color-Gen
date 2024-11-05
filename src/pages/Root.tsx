@@ -7,7 +7,7 @@ const Root = () => {
   // eslint-disable-next-line
   const [isLoading, setIsLoading] = useState(false);
   return (
-    <div className="  relative bg-[#000] min-h-screen  dark">
+    <div className="  relative bg-[#000] min-h-screen  dark font-mono">
       <Navbar />
       <Suspense fallback={<Loading />}>
         {isLoading ? <Loading /> : <Outlet />}

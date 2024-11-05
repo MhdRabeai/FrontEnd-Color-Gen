@@ -67,7 +67,7 @@ const Desc: React.FC<
       className="relative h-full overflow-hidden"
     >
       <div
-        className={`transition hover:filter-none brightness-50 h-full w-full flex justify-center items-center `}
+        className={`transition  h-full w-full flex justify-center items-center `}
         style={{ backgroundColor: props.data.color }}
       >
         <Typography.Title

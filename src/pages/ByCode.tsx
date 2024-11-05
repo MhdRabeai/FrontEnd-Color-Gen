@@ -14,7 +14,7 @@ const ByCode = () => {
     <Loading />
   ) : (
     <div className=" ">
-      <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden rounded-lg border  md:shadow-xl">
+      <div className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden rounded-lg border  md:shadow-xl py-20">
         <DotPattern
           className={cn(
             "[mask-image:radial-gradient(500px_circle_at_center,#fff,transparent)]"

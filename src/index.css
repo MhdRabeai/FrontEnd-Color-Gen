@@ -148,6 +148,123 @@
 .slider:nth-of-type(5)::before {
   animation-delay: calc(-0.5s * 5);
 }
+.ant-modal-content{
+  background-color: #2b2b2b !important;
+}
+.ant-modal-close-x{
+  color: #fff;
+}
+.ant-modal-header{
+ 
+  background-color: #2b2b2b !important;
+}
+.ant-modal-header .ant-modal-title{
+  color: #fff;
+  border-left: 5px solid rgb(22, 119, 255);
+  border-radius: 0px;
+  padding-inline-start: 5px;
+}
+.ant-modal-body input{
+  background-color: #424242 !important;
+  color: #777;
+}
+.ant-form-item-required{
+  color: #777 !important;
+  font-size: 12px !important;
+}
+.ant-modal-body input:is(:hover,:focus){
+  border-color: #ddd;
+  background-color: #424242;
+  color: #fff;
+}
+.ant-modal-body input::placeholder{
+  color: #777;
+}
+.ant-form-item-control-input-content{
+ text-align: right;
+}
+.cancel{
+  background-color: #424242;
+  border-color: #424242 !important;
+ color: #fff;
+}
+.cancel:hover{
+  color: #000 !important;
+  border-color: #424242 !important;
+  background-color: #ffffff !important;
+}
+.ok{
+  background-color: #424242;
+
+}
+.ok:hover{
+  background-color: #196de4 !important;
+  border-color: #196de4 !important;
+}
+.ant-modal-footer{
+  margin: 0 !important;
+}
+
+.box-container {
+  min-height: 250px;
+  width: calc(96% / 3);
+  border-radius: 1em;
+  overflow: hidden;
+  box-shadow: 0 10px 20px #dbdbdb;
+
+}
+
+.palette {
+  display: flex;
+  height: 78%;
+  width: 100%;
+}
+
+.color {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: flex 0.1s linear;
+}
+
+.color span {
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.5s linear;
+}
+
+
+
+.color:hover {
+  flex: 2;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.color:hover span {
+  opacity: 1;
+}
+
+#stats {
+  height: 22%;
+  width: 100%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5em;
+  box-sizing: border-box;
+  color: #666;
+}
+
+#stats svg {
+  /* fill: #bebebe; */
+  transform: scale(1.2);
+}
 @keyframes animate_2 {
   0% {
     transform: translateY(250px);
