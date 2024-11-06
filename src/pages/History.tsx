@@ -34,14 +34,10 @@ const History = () => {
   setTimeout(() => {
     setLoadCompo(false);
   }, 2000);
-  useEffect(() => {
-    // handleInit();
 
-    console.log("ssss");
-  }, [data]);
   function usePalettes() {
     return useQuery({
-      queryKey: ["posts"],
+      queryKey: ["Palettes"],
       queryFn: async (): Promise<Array<ItemType>> => {
         const response = await fetch("http://localhost:4000/palettes", {
           credentials: "include",
@@ -114,6 +110,11 @@ const History = () => {
       console.log("error Fetching");
     }
   }
+  useEffect(() => {
+    // handleInit();
+
+    console.log("ssss");
+  }, [data]);
   return loadCompo ? (
     <Loading />
   ) : (
