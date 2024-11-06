@@ -22,7 +22,7 @@ import { Bounce, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import copy from "copy-to-clipboard";
 import { useNavigate } from "react-router-dom";
-
+// import {toggleLock} from '../functions/SharedFunctions'
 interface ItemType {
   id: number;
   color: string;
@@ -42,13 +42,13 @@ function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   async function toggleLock(id: number) {
     try {
-      const ress = await fetch(
+      const response = await fetch(
         `http://localhost:4000/item/${id}?element=state`,
         {
           credentials: "include",
         }
       );
-      if (ress.ok) {
+      if (response.ok) {
         setMyData((prevItems) =>
           prevItems.map((item) =>
             item.id === id ? { ...item, state: !item.state } : item
@@ -56,39 +56,21 @@ function Home() {
         );
       }
     } catch (err) {
-      console.log("error Feaching");
+      console.log("error Fetching");
     }
   }
-  async function toggleLike(id: number) {
-    try {
-      const ress = await fetch(
-        `http://localhost:4000/item/${id}?element=like`,
-        {
-          credentials: "include",
-        }
-      );
-      if (ress.ok) {
-        setMyData((prevItems) =>
-          prevItems.map((item) =>
-            item.id === id ? { ...item, like: !item.like } : item
-          )
-        );
-      }
-    } catch (err) {
-      console.log("error Feaching");
-    }
-  }
+
   async function reGenerate() {
     setLoadings(true);
     try {
-      const ress = await fetch(
+      const response = await fetch(
         `http://localhost:4000/regenerate?tab=${tabActive}`,
         {
           credentials: "include",
         }
       );
-      if (ress.ok) {
-        const data = await ress.json();
+      if (response.ok) {
+        const data = await response.json();
         setTimeout(async () => {
           if (await data) {
             setMyData(data["randomFive"]);
@@ -97,12 +79,12 @@ function Home() {
         }, 2000);
       }
     } catch (err) {
-      console.log("error Feaching");
+      console.log("error Fetching");
     }
   }
   async function handleCodeChange(id: number, to: string) {
     try {
-      const ress = await fetch(`http://localhost:4000/item/${id}`, {
+      const response = await fetch(`http://localhost:4000/item/${id}`, {
         method: "POST",
 
         headers: {
@@ -111,8 +93,8 @@ function Home() {
         credentials: "include",
         body: JSON.stringify({ to: to }),
       });
-      if (ress.ok) {
-        const data = await ress.json();
+      if (response.ok) {
+        const data = await response.json();
 
         setMyData((prevItems) =>
           prevItems.map((item) =>
@@ -122,7 +104,7 @@ function Home() {
         console.log(data[id]["color"]);
       }
     } catch (err) {
-      console.log("error Feaching");
+      console.log("error Fetching");
     }
   }
   function notify(color: string) {
@@ -148,7 +130,7 @@ function Home() {
   }
   async function handleOnChange(e: RadioChangeEvent) {
     try {
-      const ress = await fetch(`http://localhost:4000/`, {
+      const response = await fetch(`http://localhost:4000/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -156,29 +138,29 @@ function Home() {
         credentials: "include",
         body: JSON.stringify({ method: e.target.value }),
       });
-      if (ress.ok) {
-        const data = await ress.json();
+      if (response.ok) {
+        const data = await response.json();
         setTabActive(e.target.value);
         setMyData(data["randomFive"]);
       }
     } catch (err) {
-      console.log("error Feaching");
+      console.log("error Fetching");
     }
   }
   async function handleInit() {
     try {
-      const ress = await fetch("http://localhost:4000/", {
+      const response = await fetch("http://localhost:4000/", {
         credentials: "include",
       });
-      if (ress.ok) {
-        const result = await ress.json();
+      if (response.ok) {
+        const result = await response.json();
         setTabActive(!result["type"] ? "random" : result["type"]);
         setMyData(result["randomFive"]);
 
         return result;
       }
     } catch (err) {
-      console.log("error Feaching");
+      console.log("error Fetching");
     }
   }
   const showModal = async () => {
@@ -187,7 +169,7 @@ function Home() {
 
   const handleOk = async (e: any) => {
     try {
-      const ress = await fetch(`http://localhost:4000/palettes`, {
+      const response = await fetch(`http://localhost:4000/palettes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -195,8 +177,8 @@ function Home() {
         credentials: "include",
         body: JSON.stringify({ paletteName: e.paletteName, palette: myData }),
       });
-      if (ress.ok) {
-        const code = await ress.json();
+      if (response.ok) {
+        const code = await response.json();
         toast.success(`Your Palette's been Saved!`, {
           position: "bottom-right",
           autoClose: 5000,
@@ -296,7 +278,6 @@ function Home() {
                 <Desc
                   data={ele}
                   toggleLock={toggleLock}
-                  toggleLike={toggleLike}
                   handleCodeChange={handleCodeChange}
                   notify={notify}
                   handleChangeColor={handleChangeColor}

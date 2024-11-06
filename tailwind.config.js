@@ -81,6 +81,9 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
         "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
       },
+      boxShadow: {
+        '33xl': '0 0 30px 1000px black, inset 5px 5px 5px 0px rgb(31, 31, 31)',
+      }
     },
   },
   plugins: [require("tailwindcss-animate")],

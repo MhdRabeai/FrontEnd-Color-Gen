@@ -25,24 +25,12 @@ interface ItemType {
   like: boolean;
 }
 
-function usePalettes() {
-  return useQuery({
-    queryKey: ["posts"],
-    queryFn: async (): Promise<Array<ItemType>> => {
-      const response = await fetch("http://localhost:4000/palettes", {
-        credentials: "include",
-      });
-      return await response.json();
-    },
-    refetchInterval: 5000,
-    refetchIntervalInBackground: true,
-  });
-}
 const History = () => {
   // const navigate = useNavigate();
   const [loadCompo, setLoadCompo] = useState<boolean>(true);
 
   const { data } = usePalettes();
+  const [myData, setData] = useState<ItemType[]>([]);
   setTimeout(() => {
     setLoadCompo(false);
   }, 2000);
@@ -51,7 +39,21 @@ const History = () => {
 
     console.log("ssss");
   }, [data]);
-
+  function usePalettes() {
+    return useQuery({
+      queryKey: ["posts"],
+      queryFn: async (): Promise<Array<ItemType>> => {
+        const response = await fetch("http://localhost:4000/palettes", {
+          credentials: "include",
+        });
+        const newData = await response.json();
+        setData(newData);
+        return newData;
+      },
+      refetchInterval: 5000,
+      refetchIntervalInBackground: true,
+    });
+  }
   function notify(color: string) {
     copy(color);
     toast.success(`Color ${color} is Copied!!`, {
@@ -65,6 +67,52 @@ const History = () => {
       theme: "dark",
       transition: Bounce,
     });
+  }
+  async function toggleLike(code: string) {
+    try {
+      const response = await fetch(
+        `http://localhost:4000/palettes/${code}?element=like`,
+        {
+          credentials: "include",
+        }
+      );
+      if (response.ok) {
+        setData((prevItems) =>
+          prevItems.map((item) =>
+            item.code === code ? { ...item, like: !item.like } : item
+          )
+        );
+      } else {
+        throw new Error("Error in Toggle Like!!!");
+      }
+    } catch (err) {
+      console.log("error Fetching");
+    }
+  }
+  async function handleCodeChange(code: string, to: string) {
+    try {
+      const response = await fetch(`http://localhost:4000/palettes/${code}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ to: to }),
+      });
+      if (response.ok) {
+        const data = await response.json();
+
+        setData((prevItems) =>
+          prevItems.map((item) =>
+            item.code === code ? { ...data["palette"] } : item
+          )
+        );
+        console.log();
+        // console.log(data[code]["color"]);
+      }
+    } catch (err) {
+      console.log("error Fetching");
+    }
   }
   return loadCompo ? (
     <Loading />
@@ -99,8 +147,12 @@ const History = () => {
           transition={Bounce}
         />
         <div className="container">
-          <Flex wrap gap="large" className="mx-auto">
-            {data?.map((ele) => (
+          <Flex
+            wrap
+            gap="large"
+            className="mx-auto justify-center xl:justify-between gap-10"
+          >
+            {myData?.map((ele) => (
               <ColorBox
                 paletteName={ele.paletteName}
                 like={ele.like}
@@ -109,6 +161,8 @@ const History = () => {
                 key={ele.code}
                 type={""}
                 notify={notify}
+                toggleLike={toggleLike}
+                handleCodeChange={handleCodeChange}
               />
             ))}
           </Flex>

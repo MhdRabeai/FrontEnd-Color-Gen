@@ -96,7 +96,7 @@
   color: #fff !important;
   border-color: #fff !important;
 }
-/* From Uiverse.io by Nawsome */
+
 .loader {
   position: absolute;
   top: 50%;
@@ -148,70 +148,67 @@
 .slider:nth-of-type(5)::before {
   animation-delay: calc(-0.5s * 5);
 }
-.ant-modal-content{
+.ant-modal-content {
   background-color: #2b2b2b !important;
 }
-.ant-modal-close-x{
+.ant-modal-close-x {
   color: #fff;
 }
-.ant-modal-header{
- 
+.ant-modal-header {
   background-color: #2b2b2b !important;
 }
-.ant-modal-header .ant-modal-title{
+.ant-modal-header .ant-modal-title {
   color: #fff;
   border-left: 5px solid rgb(22, 119, 255);
   border-radius: 0px;
   padding-inline-start: 5px;
 }
-.ant-modal-body input{
+.ant-modal-body input {
   background-color: #424242 !important;
   color: #777;
 }
-.ant-form-item-required{
+.ant-form-item-required {
   color: #777 !important;
   font-size: 12px !important;
 }
-.ant-modal-body input:is(:hover,:focus){
+.ant-modal-body input:is(:hover, :focus) {
   border-color: #ddd;
   background-color: #424242;
   color: #fff;
 }
-.ant-modal-body input::placeholder{
+.ant-modal-body input::placeholder {
   color: #777;
 }
-.ant-form-item-control-input-content{
- text-align: right;
+.ant-form-item-control-input-content {
+  text-align: right;
 }
-.cancel{
+.cancel {
   background-color: #424242;
   border-color: #424242 !important;
- color: #fff;
+  color: #fff;
 }
-.cancel:hover{
+.cancel:hover {
   color: #000 !important;
   border-color: #424242 !important;
   background-color: #ffffff !important;
 }
-.ok{
+.ok {
   background-color: #424242;
-
 }
-.ok:hover{
+.ok:hover {
   background-color: #196de4 !important;
   border-color: #196de4 !important;
 }
-.ant-modal-footer{
+.ant-modal-footer {
   margin: 0 !important;
 }
 
 .box-container {
   min-height: 250px;
-  width: calc(96% / 3);
+  width: calc(90% / 3);
   border-radius: 1em;
   overflow: hidden;
   box-shadow: 0 10px 20px #dbdbdb;
-
 }
 
 .palette {
@@ -238,8 +235,6 @@
   transition: opacity 0.5s linear;
 }
 
-
-
 .color:hover {
   flex: 2;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -264,6 +259,48 @@
 #stats svg {
   /* fill: #bebebe; */
   transform: scale(1.2);
+}
+
+.box {
+  position: relative;
+  height: 250px;
+  /* background-color: rgb(15, 15, 15); */
+  transform-style: preserve-3d;
+  animation: rot 2s infinite ease;
+  border-radius: 20px;
+  box-shadow: 0 0 50px 0px, inset 0 0 90px 0px;
+  color: white;
+  transition: 1.5s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.box .clr {
+}
+.box .text {
+  transition: all 0.5s;
+}
+.box .Btns {
+}
+.box:hover .text {
+  scale: 1.2;
+  opacity: 0.7;
+}
+.box:hover {
+  box-shadow: 0 0 30px 1000px black, inset 5px 5px 5px 0px rgb(31, 31, 31);
+}
+@keyframes rot {
+  0% {
+    transform: rotateX(-15deg) translateY(0px);
+  }
+
+  50% {
+    transform: rotateX(-15deg) translateY(-10px);
+  }
+
+  100% {
+    transform: rotateX(-15deg) translateY(0px);
+  }
 }
 @keyframes animate_2 {
   0% {

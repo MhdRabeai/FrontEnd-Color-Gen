@@ -2,8 +2,6 @@ import React from "react";
 import { Flex, Typography } from "antd";
 import { FaLock } from "react-icons/fa6";
 import { FaLockOpen } from "react-icons/fa6";
-import { FaRegHeart } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa";
 import { GoCopy } from "react-icons/go";
 import { IoMdSettings } from "react-icons/io";
 import type { MenuProps } from "antd";
@@ -14,7 +12,6 @@ const Desc: React.FC<
   Readonly<{
     data?: any | undefined;
     toggleLock?: Function | any;
-    toggleLike?: Function | any;
     handleCodeChange?: Function | any;
     notify?: Function | any;
     handleChangeColor?: Function | any;
@@ -107,23 +104,7 @@ const Desc: React.FC<
             onClick={() => props.notify(props.data.color)}
           />
         </button>
-        <button>
-          {props.data.like ? (
-            <FaHeart
-              className="fill-[#ff0033bd] hover:fill-[#ff0033]"
-              onClick={() => props.toggleLike(props.data.id)}
-            />
-          ) : (
-            <FaRegHeart
-              className="fill-[#777] hover:fill-[#fff]"
-              onClick={() => props.toggleLike(props.data.id)}
-            />
-          )}
-        </button>
 
-        <Dropdown menu={{ items }} placement="bottom" arrow className="dark">
-          <IoMdSettings className="fill-[#777] hover:fill-[#fff]" />
-        </Dropdown>
         <ColorPicker
           className="min-w-5 w-5 min-h-5 h-5 p-0 flex justify-center items-center"
           value={props.data.color}
@@ -131,6 +112,9 @@ const Desc: React.FC<
             props.handleChangeColor(props.data.id, e.toHexString())
           }
         />
+        <Dropdown menu={{ items }} placement="bottom" arrow className="dark">
+          <IoMdSettings className="fill-[#777] hover:fill-[#fff]" />
+        </Dropdown>
       </div>
     </Flex>
   );
