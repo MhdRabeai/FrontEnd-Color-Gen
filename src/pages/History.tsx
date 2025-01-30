@@ -39,7 +39,7 @@ const History = () => {
     return useQuery({
       queryKey: ["Palettes"],
       queryFn: async (): Promise<Array<ItemType>> => {
-        const response = await fetch("http://localhost:4000/palettes", {
+        const response = await fetch("https://backnd-color-gen.onrender.com/palettes", {
           credentials: "include",
         });
         const newData = await response.json();
@@ -67,7 +67,7 @@ const History = () => {
   async function toggleLike(code: string) {
     try {
       const response = await fetch(
-        `http://localhost:4000/palettes/${code}?element=like`,
+        `https://backnd-color-gen.onrender.com/palettes/${code}?element=like`,
         {
           credentials: "include",
         }
@@ -87,7 +87,7 @@ const History = () => {
   }
   async function handleCodeChange(code: string, to: string) {
     try {
-      const response = await fetch(`http://localhost:4000/palettes/${code}`, {
+      const response = await fetch(`https://backnd-color-gen.onrender.com/palettes/${code}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -104,16 +104,12 @@ const History = () => {
           )
         );
         console.log();
-        // console.log(data[code]["color"]);
       }
     } catch (err) {
       console.log("error Fetching");
     }
   }
   useEffect(() => {
-    // handleInit();
-
-    console.log("ssss");
   }, [data]);
   return loadCompo ? (
     <Loading />
