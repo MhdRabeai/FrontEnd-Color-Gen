@@ -44,7 +44,7 @@ const ByCode = () => {
   }
   async function handleCssFile(palette: []) {
     try {
-      const response = await fetch(`http://localhost:4000/cssFile`, {
+      const response = await fetch(`https://backnd-color-gen.onrender.com/cssFile`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -69,7 +69,7 @@ const ByCode = () => {
   }
   async function handlePdfFile(palette: []) {
     try {
-      const response = await fetch(`http://localhost:4000/pdfFile`, {
+      const response = await fetch(`https://backnd-color-gen.onrender.com/pdfFile`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
