@@ -43,7 +43,7 @@ function Home() {
   async function toggleLock(id: number) {
     try {
       const response = await fetch(
-        `http://localhost:4000/item/${id}?element=state`,
+        `https://backnd-color-gen.onrender.com/item/${id}?element=state`,
         {
           credentials: "include",
         }
