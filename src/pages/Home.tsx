@@ -64,7 +64,7 @@ function Home() {
     setLoadings(true);
     try {
       const response = await fetch(
-        `http://localhost:4000/regenerate?tab=${tabActive}`,
+        `https://backnd-color-gen.onrender.com/regenerate?tab=${tabActive}`,
         {
           credentials: "include",
         }
@@ -84,7 +84,7 @@ function Home() {
   }
   async function handleCodeChange(id: number, to: string) {
     try {
-      const response = await fetch(`http://localhost:4000/item/${id}`, {
+      const response = await fetch(`https://backnd-color-gen.onrender.com/item/${id}`, {
         method: "POST",
 
         headers: {
@@ -130,7 +130,7 @@ function Home() {
   }
   async function handleOnChange(e: RadioChangeEvent) {
     try {
-      const response = await fetch(`http://localhost:4000/`, {
+      const response = await fetch(`https://backnd-color-gen.onrender.com/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -149,7 +149,7 @@ function Home() {
   }
   async function handleInit() {
     try {
-      const response = await fetch("http://localhost:4000/", {
+      const response = await fetch("https://backnd-color-gen.onrender.com/", {
         credentials: "include",
       });
       if (response.ok) {
@@ -169,7 +169,7 @@ function Home() {
 
   const handleOk = async (e: any) => {
     try {
-      const response = await fetch(`http://localhost:4000/palettes`, {
+      const response = await fetch(`https://backnd-color-gen.onrender.com/palettes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
